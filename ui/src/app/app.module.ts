@@ -1,5 +1,6 @@
 import { ComponentsModule } from './components/components.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,10 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FeaturesModule } from './features';
 
-import { HttpClientModule } from '@angular/common/http';
-
 @NgModule({
   declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
     MatButtonModule,
@@ -20,9 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     FeaturesModule,
     MatToolbarModule,
     ComponentsModule,
-    HttpClientModule,
   ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class AppModule { }
