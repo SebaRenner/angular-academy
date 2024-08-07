@@ -1,6 +1,7 @@
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { inject, TestBed } from '@angular/core/testing';
 import { UserService } from './user.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { User } from './user';
 import { provideMockStore } from '@ngrx/store/testing';
 
@@ -12,8 +13,12 @@ export const MOCK_USERS: User[] = [
 describe(UserService.name, () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [provideMockStore({})],
+      imports: [],
+      providers: [
+        provideMockStore({}),
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
     });
   });
 
